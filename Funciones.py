@@ -52,9 +52,29 @@ def obtenerProductoMenosVendido():
 
 
 def obtenerProductoconMasStock():
-
-    return
+    actualizarDatos()
+    return productos.keys()[-1]
 
 
 def obtenerProductoconMenosStock():
-    return
+    actualizarDatos()
+    return productos.keys()[0]
+
+
+def generar_oferta():
+    productoMasVendido = obtenerProductoMasVendido()
+    productoMenosVendido = obtenerProductoMenosVendido()
+
+    return {"id": productoMasVendido, "oferta": "Llevate un " + productoMenosVendido + " A mitad de precio."}
+
+def generar_recomnedacion():
+    productoMasStock = obtenerProductoconMasStock()
+    productoMenosStock = obtenerProductoconMenosStock()
+    recomendaciones = []
+    if productos[productoMasStock] > 200:
+        recomendaciones.append({"id": productoMasStock, "recomendacion": "Crear una oferta con menus relacionados con "
+                                                                         "este producto"})
+    if productos[productoMenosStock] < 50:
+        recomendaciones.append({"id": productoMenosStock, "recoomendacion": "Comprar mas " + productoMenosStock})
+
+    return recomendaciones
