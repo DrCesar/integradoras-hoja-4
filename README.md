@@ -13,6 +13,6 @@ Sugerencia
 
 ## Ruta de Ofertas
 
-Sugerencia
+Oferta
 - Nombre de la cola: *sale*
 - Ejemplo: `{"id":"productID","sale":"descripcion"}`

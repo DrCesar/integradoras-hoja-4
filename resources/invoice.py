@@ -13,7 +13,7 @@ invoice_product_table = Table('association', Base.metadata,
 class Invoice(Base):
     __tablename__ = 'invoice'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(String, primary_key=True)
     address = Column(String)
     date_created = Column(Integer)
     name = Column(String)
@@ -25,3 +25,8 @@ class Invoice(Base):
     @classmethod
     def get_all(cls):
         return cls.query.all()
+
+
+    def __repr__(self):
+        return "<Invoice (id='%s', address='%s', date_created='%s', name='%s', nit='%s'>" % (self.id, self.addres, self.date_created, self.name, self.nit)
+        
