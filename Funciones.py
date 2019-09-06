@@ -1,4 +1,5 @@
 import operator
+import random as r
 facturas = []
 productos = []
 cantidades_facturas = {}
@@ -16,6 +17,10 @@ class Factura:
         self.materiaPrima = materiaPrima
         fecha = self.fecha_de_caducidad.split('-')
         self.quantity = fecha[0] * 10000 + fecha[1] * 100 + fecha[2]
+
+    def actualizar(self, json):
+        return generar_oferta()
+
 
 class Producto:
     id = 0
@@ -64,17 +69,16 @@ def obtenerProductoconMenosStock():
 def generar_oferta():
     productoMasVendido = obtenerProductoMasVendido()
     productoMenosVendido = obtenerProductoMenosVendido()
-
-    return {"id": productoMasVendido, "oferta": "Llevate un " + productoMenosVendido + " A mitad de precio."}
-
-def generar_recomnedacion():
     productoMasStock = obtenerProductoconMasStock()
     productoMenosStock = obtenerProductoconMenosStock()
-    recomendaciones = []
-    if productos[productoMasStock] > 200:
-        recomendaciones.append({"id": productoMasStock, "recomendacion": "Crear una oferta con menus relacionados con "
-                                                                         "este producto"})
-    if productos[productoMenosStock] < 50:
-        recomendaciones.append({"id": productoMenosStock, "recoomendacion": "Comprar mas " + productoMenosStock})
 
-    return recomendaciones
+    rng = r.randint(0,3)
+    if rng == 1:
+        return {"id": productoMasVendido, "oferta": "Llevate un " + productoMenosVendido + " A mitad de precio en la "
+                                                                    "compra de un " + productoMasVendido }
+    elif rng == 2:
+        return {"id": productoMenosVendido, "oferta": "En la compra de un " + productoMenosVendido + " llevate el tercero gratis."}
+    elif rng == 3:
+        return {"id": productoMasStock, "recomendacion": "Crear una oferta con menus relacionados con "                                                                            "este producto"}
+    else:
+        return {"id": productoMenosStock, "recoomendacion": "Comprar mas " + productoMenosStock}
