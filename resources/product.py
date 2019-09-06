@@ -24,8 +24,8 @@ class Product(Base):
         return session.query(cls).all()
 
     @classmethod
-    def get_by_id(cls, session, id):
-        return session.query(cls).filter(cls.id = id).first()
+    def get_by_id(cls, session, idtemp):
+        return session.query(cls).filter(id = idtemp).first()
 
 
     def __repr__(self):
