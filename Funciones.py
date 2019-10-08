@@ -1,4 +1,5 @@
 import operator
+import pprint
 import random as r
 facturas = []
 productos = []
@@ -37,7 +38,13 @@ class Producto:
         self.descripcion = producto['description']
         self.cantidad = producto['price']
         self.fecha = producto['date']
+        self.stock = 1
         self.quantity = self.fecha[0] * 10000 + self.fecha[1] * 100 + self.fecha[2]
+
+    def __str__(self):
+        return "{ id: " + str(self.id) + ",\nnombre: " + str(self.nombre) + ",\ndescripcion: " + str(self.descripcion) + \
+               ",cantidad :" + str(self.cantidad) + ",\nfecha: " + str(self.fecha) + ",\nstock: " + str(self.stock) + "\n"
+
 
 
 #Obtener Datos de Rabit sobre las ultimas 5000 facturas de la tabla
@@ -50,11 +57,14 @@ def agregarFactura(factura):
         agregarProducto(i)
 
 def agregarProducto(producto):
+    for elemento in productos:
+        if elemento.nombre == producto['name']:
+            elemento.stock = elemento.stock + 1
+            return
     nuevoProducto = Producto(producto)
     productos.append(nuevoProducto)
 
 def actualizarDatos():
-    contador = len(cantidades_facturas)
     for factura in facturas:
         for producto in factura.products:
             if producto['name'] in cantidades_facturas:
@@ -64,7 +74,9 @@ def actualizarDatos():
 
     #YYYY-MM-DD
     cantidades_produtos = {}
-    productos.sort(key=lambda x: x.quantity, reverse=False)
+
+    cantidades_produtos = productos.sort(key=lambda x: x.quantity, reverse=False)
+    print(cantidades_produtos)
     return
 
 
@@ -90,12 +102,18 @@ def obtenerProductoMenosVendido():
 
 def obtenerProductoconMasStock():
     actualizarDatos()
-    return productos.keys()[-1]
+    for i in productos:
+        print (i)
+
+    return productos[0].stock
 
 
 def obtenerProductoconMenosStock():
     actualizarDatos()
-    return productos.keys()[0]
+    for i in productos:
+        print (i)
+
+    return productos[0].stock
 
 
 def generar_oferta():
@@ -119,10 +137,10 @@ def generar_recomnedacion():
     productoMasStock = obtenerProductoconMasStock()
     productoMenosStock = obtenerProductoconMenosStock()
     recomendaciones = []
-    if productos[productoMasStock] > 200:
-        recomendaciones.append({"id": productoMasStock, "recomendacion": "Crear una oferta con menus relacionados con "
+    if productoMasStock > 200:
+        recomendaciones.append({"id": str(productoMasStock), "recomendacion": "Crear una oferta con menus relacionados con "
                                                                          "este producto"})
-    if productos[productoMenosStock] < 50:
-        recomendaciones.append({"id": productoMenosStock, "recomendacion": "Comprar mas " + productoMenosStock})
+    if productoMenosStock < 50:
+        recomendaciones.append({"id": str(productoMenosStock), "recomendacion": "Comprar mas " + str(productoMenosStock)})
 
     return recomendaciones
