@@ -35,14 +35,13 @@ def erp_product_callback(ch, method, properties, body):
         Funciones.agregarProducto(product)
 
     # TODO 
-    recomendacion = Funciones.generar_recomnedacion()
+    recomendations = Funciones.generar_recomnedacion()
+    sales = Funciones.generar_oferta()
 
-    # sales = gen_sales()
+    client_channel.basic_publish(exchange='',routing_key='recomendation',body=json.dumps(recomendations))
+    client_channel.basic_publish(exchange='',routing_key='sales',body=json.dumps(sales))
 
-    #client_channel.basic_publish(exchange='',routing_key='recomendation',body=json.dumps(recomendations))
-    #client_channel.basic_publish(exchange='',routing_key='sales',body=json.dumps(sales))
-
-
+    return recomendations, sales
 
 def erp_invoice_callback(ch, method, properties, body):
     body = json.loads(body)
@@ -63,14 +62,13 @@ def erp_invoice_callback(ch, method, properties, body):
         Funciones.agregarFactura(invoice)
 
     # TODO 
-    # recomedations = gen_recomentations()
+    recomendations = Funciones.generar_recomnedacion()
+    sales = Funciones.generar_oferta()
 
-    # sales = gen_sales()
+    client_channel.basic_publish(exchange='',routing_key='recomendation',body=json.dumps(recomendations))
+    client_channel.basic_publish(exchange='',routing_key='sales',body=json.dumps(sales))
 
-    #client_channel.basic_publish(exchange='',routing_key='recomendation',body=json.dumps(recomendations))
-    #client_channel.basic_publish(exchange='',routing_key='sales',body=json.dumps(sales))
-
-
+    return recomendations, sales
 
 
 

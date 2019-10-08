@@ -4,50 +4,63 @@ facturas = []
 productos = []
 cantidades_facturas = {}
 cantidades_produtos = {}
+
+
 class Factura:
     id = 0
+    direccion = ""
+    fecha = ""
+    nombre = ""
+    nit = ""
     monto = 0
     productos = []
-    materiaPrima = []
 
-    def __init__(self, id, monto, productos, materiaPrima, fecha_de_caducidad):
-        self.id = id
-        self.monto = monto
-        self.productos = productos
-        self.materiaPrima = materiaPrima
-        self.fecha = fecha_de_caducidad.split('-')
-        self.quantity = self.fecha[0] * 10000 + self.fecha[1] * 100 + self.fecha[2]
-
-    def actualizar(self, json):
-        return generar_oferta()
+    def __init__(self, invoice):
+        self.id = invoice['id']
+        self.direccion = invoice['address']
+        self.fecha = invoice['date_created']
+        self.nombre = invoice['name']
+        self.nit = invoice['nit']
+        self.products = invoice['products']
 
 
 class Producto:
     id = 0
+    nombre = ""
+    descripcion = ""
     cantidad = 0
-    fecha_de_caducidad  = 0
+    fecha= 0
 
-    def __init__(self, id, cantidad, fecha_de_caducidad):
-        self.id = id
-        self.cantidad = cantidad
-        self.fecha_de_caducidad = fecha_de_caducidad
+    def __init__(self, producto):
+        self.id = producto['id']
+        self.nombre = producto['name']
+        self.descripcion = producto['description']
+        self.cantidad = producto['price']
+        self.fecha = producto['date']
+        self.quantity = self.fecha[0] * 10000 + self.fecha[1] * 100 + self.fecha[2]
+
 
 #Obtener Datos de Rabit sobre las ultimas 5000 facturas de la tabla
 
 def agregarFactura(factura):
-    facturas.append(factura)
+    nuevaFactura = Factura(factura)
+    facturas.append(nuevaFactura)
+
+    for i in factura['products']:
+        agregarProducto(i)
 
 def agregarProducto(producto):
-    productos.append(producto)
+    nuevoProducto = Producto(producto)
+    productos.append(nuevoProducto)
 
 def actualizarDatos():
-    cantidades_facturas = {}
+    contador = len(cantidades_facturas)
     for factura in facturas:
-        for producto in factura.productos:
-            if producto in cantidades_facturas:
-                cantidades_facturas[producto] = cantidades_facturas[producto] + 1
+        for producto in factura.products:
+            if producto['name'] in cantidades_facturas:
+                cantidades_facturas[producto['name']] = cantidades_facturas[producto['name']] + 1
             else:
-                cantidades_facturas[producto] = 1
+                cantidades_facturas[producto['name']] = 1
 
     #YYYY-MM-DD
     cantidades_produtos = {}
@@ -56,12 +69,24 @@ def actualizarDatos():
 
 
 def obtenerProductoMasVendido():
-    return max(cantidades_facturas.iteritems(), key=operator.itemgetter(1))[0]
+    elproductomasvendido = ""
+    frecuencia = 0
+    for product in  cantidades_facturas.items():
+        if product[1] > frecuencia:
+            frecuencia = product[1]
+            elproductomasvendido = product[0]
+    return elproductomasvendido
+    # return max(cantidades_facturas.items(), key=operator.itemgetter(1))[0]
 
 
 def obtenerProductoMenosVendido():
-    return min(cantidades_facturas.iteritems(), key=operator.itemgetter(1))[0]
-
+    elproductomenosveniddo = ""
+    frecuencia = 100
+    for product in  cantidades_facturas.items():
+        if product[1] < frecuencia:
+            frecuencia = product[1]
+            elproductomenosveniddo = product[0]
+    return elproductomenosveniddo
 
 def obtenerProductoconMasStock():
     actualizarDatos()
@@ -98,6 +123,6 @@ def generar_recomnedacion():
         recomendaciones.append({"id": productoMasStock, "recomendacion": "Crear una oferta con menus relacionados con "
                                                                          "este producto"})
     if productos[productoMenosStock] < 50:
-        recomendaciones.append({"id": productoMenosStock, "recoomendacion": "Comprar mas " + productoMenosStock})
+        recomendaciones.append({"id": productoMenosStock, "recomendacion": "Comprar mas " + productoMenosStock})
 
     return recomendaciones

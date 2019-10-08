@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite errors="0" failures="0" hostname="Diego" name="pytest" skipped="0" tests="1" time="0.014" timestamp="2019-10-08T15:24:23.482707"><testcase classname="test_recomendations" file="test_recomendations.py" line="32" name="test_mayoresymenoresventas" time="0.001"></testcase></testsuite></testsuites>
