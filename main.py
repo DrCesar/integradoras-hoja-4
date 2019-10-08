@@ -32,18 +32,15 @@ def erp_product_callback(ch, method, properties, body):
 
     products = Product.get_all(session)
     for product in products:
-        print(product)
+        Funciones.agregarProducto(product)
 
     # TODO 
-    # recomedations = gen_recomentations()
+    recomendacion = Funciones.generar_recomnedacion()
 
     # sales = gen_sales()
 
     #client_channel.basic_publish(exchange='',routing_key='recomendation',body=json.dumps(recomendations))
     #client_channel.basic_publish(exchange='',routing_key='sales',body=json.dumps(sales))
-
-
-
 
 
 
@@ -63,7 +60,7 @@ def erp_invoice_callback(ch, method, properties, body):
 
     invoices = Invoice.get_all(session)
     for invoice in invoices:
-        print(invoice)
+        Funciones.agregarFactura(invoice)
 
     # TODO 
     # recomedations = gen_recomentations()
