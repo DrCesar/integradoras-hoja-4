@@ -42,15 +42,15 @@ def test_mayoresymenoresventas():
 
 
 
-# def test_recommendations():
-#     for i in Funciones.productos:
-#         print(i)
-#     print("=========================================================")
-#     Funciones.agregarProducto(dummy_product1)
-#     Funciones.agregarProducto(dummy_product2)
-#     Funciones.agregarProducto(dummy_product3)
-#     Funciones.actualizarDatos()
-#     resultado1 = Funciones.generar_recomnedacion()
-#     print(resultado1)
-#
-# test_recommendations()
+def test_recommendations():
+    for i in Funciones.productos:
+        print(i)
+    print("=========================================================")
+    Funciones.agregarProducto(dummy_product1)
+    Funciones.agregarProducto(dummy_product2)
+    Funciones.agregarProducto(dummy_product3)
+    Funciones.actualizarDatos()
+    resultado1 = Funciones.obtenerProductoconMasStock()
+    print(resultado1)
+
+test_recommendations()

@@ -102,18 +102,13 @@ def obtenerProductoMenosVendido():
 
 def obtenerProductoconMasStock():
     actualizarDatos()
-    for i in productos:
-        print (i)
 
-    return productos[0].stock
+    return str(productos[0])
 
 
 def obtenerProductoconMenosStock():
     actualizarDatos()
-    for i in productos:
-        print (i)
-
-    return productos[0].stock
+    return str(productos[-1])
 
 
 def generar_oferta():
