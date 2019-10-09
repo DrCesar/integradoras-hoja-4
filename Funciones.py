@@ -76,7 +76,6 @@ def actualizarDatos():
     cantidades_produtos = {}
 
     cantidades_produtos = productos.sort(key=lambda x: x.quantity, reverse=False)
-    print(cantidades_produtos)
     return
 
 
@@ -140,4 +139,3 @@ def generar_recomnedacion():
 
     return recomendaciones
 
-     
