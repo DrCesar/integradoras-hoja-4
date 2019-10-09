@@ -40,8 +40,6 @@ def test_mayoresymenoresventas():
     return
 
 
-
-
 def test_recommendations():
     for i in Funciones.productos:
         print(i)
@@ -53,4 +51,3 @@ def test_recommendations():
     resultado1 = Funciones.obtenerProductoconMasStock()
     print(resultado1)
 
-test_recommendations()
