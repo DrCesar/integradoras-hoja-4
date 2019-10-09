@@ -139,3 +139,5 @@ def generar_recomnedacion():
         recomendaciones.append({"id": str(productoMenosStock), "recomendacion": "Comprar mas " + str(productoMenosStock)})
 
     return recomendaciones
+
+     
