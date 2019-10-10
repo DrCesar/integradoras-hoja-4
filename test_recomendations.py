@@ -84,8 +84,12 @@ def test_recommendations():
     Funciones.ordenarProductos()
     resultado1 = Funciones.obtenerProductoconMasStock()
     resultado2 = Funciones.obtenerProductoconMenosStock()
-    print('deberia de ser', resultado1.nombre)
     assert resultado1.nombre == 'Galleta' and resultado1.stock == 4
     assert resultado2.nombre == 'FiestaSnax' and resultado2.stock == 1
 
 
+def test_exploratory_1():
+    keylist = []
+    for property, value in vars(Funciones.productos[0]).items():
+        keylist.append(property)
+    assert keylist == ['id', 'nombre', 'descripcion', 'cantidad', 'fecha', 'stock', 'quantity']
