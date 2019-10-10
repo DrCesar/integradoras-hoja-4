@@ -1,6 +1,5 @@
-import operator
-import pprint
 import random as r
+from operator import itemgetter
 facturas = []
 productos = []
 cantidades_facturas = {}
@@ -73,10 +72,6 @@ def actualizarDatos():
                 cantidades_facturas[producto['name']] = 1
 
     #YYYY-MM-DD
-    cantidades_produtos = {}
-
-    cantidades_produtos = productos.sort(key=lambda x: x.stock, reverse=False)
-    print(cantidades_produtos)
     return
 
 
@@ -100,15 +95,17 @@ def obtenerProductoMenosVendido():
             elproductomenosveniddo = product[0]
     return elproductomenosveniddo
 
-def obtenerProductoconMasStock():
-    actualizarDatos()
+def ordenarProductos():
+    productos.sort(key=lambda x:x.stock, reverse=True)
+    for i in productos:
+        print(i)
 
-    return str(cantidades_produtos[0])
+def obtenerProductoconMasStock():
+    return productos[0]
 
 
 def obtenerProductoconMenosStock():
-    actualizarDatos()
-    return str(cantidades_produtos[-1])
+    return productos[-1]
 
 
 def generar_oferta():

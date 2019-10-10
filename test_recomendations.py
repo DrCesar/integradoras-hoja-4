@@ -62,6 +62,14 @@ dummy_product8 = {"id": 4,
 
 
 def test_mayoresymenoresventas():
+    Funciones.agregarProducto(dummy_product1)
+    Funciones.agregarProducto(dummy_product2)
+    Funciones.agregarProducto(dummy_product3)
+    Funciones.agregarProducto(dummy_product4)
+    Funciones.agregarProducto(dummy_product5)
+    Funciones.agregarProducto(dummy_product6)
+    Funciones.agregarProducto(dummy_product7)
+    Funciones.agregarProducto(dummy_product8)
     Funciones.agregarFactura(dummy_invoice)
     Funciones.actualizarDatos()
     resultado1 = Funciones.obtenerProductoMasVendido()
@@ -72,21 +80,12 @@ def test_mayoresymenoresventas():
 
 
 def test_recommendations():
-    Funciones.agregarProducto(dummy_product1)
-    Funciones.agregarProducto(dummy_product2)
-    Funciones.agregarProducto(dummy_product3)
-    Funciones.agregarProducto(dummy_product4)
-    Funciones.agregarProducto(dummy_product5)
-    Funciones.agregarProducto(dummy_product6)
-    Funciones.agregarProducto(dummy_product7)
-    Funciones.agregarProducto(dummy_product8)
-    Funciones.actualizarDatos()
-    for i in Funciones.productos:
-        print(i)
     print("=========================================================")
+    Funciones.ordenarProductos()
     resultado1 = Funciones.obtenerProductoconMasStock()
     resultado2 = Funciones.obtenerProductoconMenosStock()
-    print(resultado1)
-    print(resultado2)
+    print('deberia de ser', resultado1.nombre)
+    assert resultado1.nombre == 'Galleta' and resultado1.stock == 4
+    assert resultado2.nombre == 'FiestaSnax' and resultado2.stock == 1
 
-test_recommendations()
+
