@@ -21,12 +21,43 @@ dummy_product3 = {"id": 2,
                   "price": 20,
                   "date": "2020-01-01",
                   }
+dummy_product4 = {"id": 3,
+                  "name": "FiestaSnax",
+                  "description": "otro riscito",
+                  "price": 10,
+                  "date": "2020-01-01",
+                  }
+dummy_product5 = {"id": 2,
+                  "name": "Tortix",
+                  "description": "un riscito",
+                  "price": 20,
+                  "date": "2020-01-01",
+                  }
 dummy_invoice = {"id": 0,
                  "address": "ciudad",
                  "date_created": "2020-01-01",
                  "name": "Rodolfo Perez",
                  "nit": 12345678-9,
                  "products": [dummy_product1,  dummy_product2, dummy_product3]}
+dummy_product6 = {"id": 4,
+                  "name": "elotito",
+                  "description": "otro riscito",
+                  "price": 5,
+                  "date": "2020-01-01",
+                  }
+dummy_product7 = {"id": 4,
+                  "name": "elotito",
+                  "description": "otro riscito",
+                  "price": 5,
+                  "date": "2020-01-01",
+                  }
+dummy_product8 = {"id": 4,
+                  "name": "elotito",
+                  "description": "otro riscito",
+                  "price": 5,
+                  "date": "2020-01-01",
+                  }
+
 
 
 
@@ -41,13 +72,21 @@ def test_mayoresymenoresventas():
 
 
 def test_recommendations():
-    for i in Funciones.productos:
-        print(i)
-    print("=========================================================")
     Funciones.agregarProducto(dummy_product1)
     Funciones.agregarProducto(dummy_product2)
     Funciones.agregarProducto(dummy_product3)
+    Funciones.agregarProducto(dummy_product4)
+    Funciones.agregarProducto(dummy_product5)
+    Funciones.agregarProducto(dummy_product6)
+    Funciones.agregarProducto(dummy_product7)
+    Funciones.agregarProducto(dummy_product8)
     Funciones.actualizarDatos()
+    for i in Funciones.productos:
+        print(i)
+    print("=========================================================")
     resultado1 = Funciones.obtenerProductoconMasStock()
+    resultado2 = Funciones.obtenerProductoconMenosStock()
     print(resultado1)
+    print(resultado2)
 
+test_recommendations()

@@ -75,7 +75,8 @@ def actualizarDatos():
     #YYYY-MM-DD
     cantidades_produtos = {}
 
-    cantidades_produtos = productos.sort(key=lambda x: x.quantity, reverse=False)
+    cantidades_produtos = productos.sort(key=lambda x: x.stock, reverse=False)
+    print(cantidades_produtos)
     return
 
 
@@ -102,12 +103,12 @@ def obtenerProductoMenosVendido():
 def obtenerProductoconMasStock():
     actualizarDatos()
 
-    return str(productos[0])
+    return str(cantidades_produtos[0])
 
 
 def obtenerProductoconMenosStock():
     actualizarDatos()
-    return str(productos[-1])
+    return str(cantidades_produtos[-1])
 
 
 def generar_oferta():
