@@ -93,3 +93,10 @@ def test_exploratory_1():
     for property, value in vars(Funciones.productos[0]).items():
         keylist.append(property)
     assert keylist == ['id', 'nombre', 'descripcion', 'cantidad', 'fecha', 'stock', 'quantity']
+
+def test_exploratory_2():
+    keylist = []
+    for property, value in vars(Funciones.facturas[0]).items():
+        print(property)
+        keylist.append(property)
+    assert keylist == ['id', 'direccion', 'fecha', 'nombre', 'nit', 'products']
